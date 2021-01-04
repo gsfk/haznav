@@ -1,0 +1,9 @@
+{
+  "name": "haznav",
+  "version": "1.0",
+  "description": "hazard-aware bicycle navigation",
+  "main": "server/index.js",
+  "repository": "https://github.com/gsfk/haznav.git",
+  "author": "Gordon Krieger <gordon.krieger@gmail.com>",
+  "license": "MIT"
+}
