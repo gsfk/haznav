@@ -1,2 +1,2 @@
 # haznav
-Hazard-aware bicycle navigation
+Hazard-aware bicycle navigation, in progress
