@@ -15,8 +15,10 @@ export class DisplayMapClass extends React.Component {
 
     const H = window.H;
     const platform = new H.service.Platform({
-        apikey: "{HERE-API-KEY}"
+        apikey: `${REACT_APP_API_KEY}`
     });
+    // test build... correct setup here would be to route through proxy
+
 
     const defaultLayers = platform.createDefaultLayers();
 
