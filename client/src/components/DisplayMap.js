@@ -25,7 +25,7 @@ const DisplayMap = () => {
         setMap(map);
 
         //cleanup on unmount
-        return (setMap(null))
+        return (() => setMap(null))
     });
 
     return (
