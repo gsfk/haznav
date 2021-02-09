@@ -11,7 +11,7 @@ express()
     .use(express.static("public"))
     .use(bodyParser.json())
     .use(express.urlencoded({extended: false}))
-    .use("/", express.static(__dirname + "/"))
+    // .use("/", express.static(__dirname + "/"))
 
 
     .get("*", (req, res) => {
