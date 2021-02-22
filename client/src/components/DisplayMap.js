@@ -26,7 +26,7 @@ const DisplayMap = () => {
 
         //cleanup on unmount
         return (() => setMap(null))
-    });
+    }, []);
 
     return (
         // Set a height on the map so it will display
