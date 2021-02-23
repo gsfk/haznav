@@ -3,6 +3,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
+const {getAccidents} = require("./handlers")
 
 const PORT = process.env.PORT || 8000;
 
@@ -13,6 +14,7 @@ express()
     .use(express.urlencoded({extended: false}))
     // .use("/", express.static(__dirname + "/"))
 
+    .get("/accidents", getAccidents)
 
     .get("*", (req, res) => {
         res.status(404).json({

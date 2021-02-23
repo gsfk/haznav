@@ -1,39 +1,44 @@
-import React, {useEffect, useRef, useState} from "react"
+import React, { useEffect, useRef, useState } from "react";
+import styled from "styled-components";
 
-const DisplayMap = () => {
-    const mapRef = useRef(null);
-    const [map, setMap] = useState(null);
+const DisplayMap = ({ height, width }) => {
+  const mapRef = useRef(null);
+  const [map, setMap] = useState(null);
 
-    useEffect(()=> {
-        const H = window.H;
-        const platform = new H.service.Platform({
-            apikey: `${process.env.REACT_APP_API_KEY}`
-        });
+  useEffect(() => {
+    console.log("useEffect");
+    const H = window.H;
+    const platform = new H.service.Platform({
+      apikey: `${process.env.REACT_APP_API_KEY}`,
+    });
 
-        const defaultLayers = platform.createDefaultLayers();
+    const defaultLayers = platform.createDefaultLayers();
 
-        // Create map instance
-        const map = new H.Map(
-        mapRef.current,
-        defaultLayers.vector.normal.map,
-        {
-          center: { lat: 45.5, lng: -73.56 },
-          zoom: 12,
-          pixelRatio: window.devicePixelRatio || 1
-        }
-      );
-        setMap(map);
+    // Create map instance
+    setMap(
+      new H.Map(mapRef.current, defaultLayers.vector.normal.map, {
+        center: { lat: 45.5, lng: -73.56 },
+        zoom: 12,
+        pixelRatio: window.devicePixelRatio || 1,
+      })
+    );
+  
+    //cleanup on unmount
+    return () => setMap(null);
+  }, []);
 
-        //cleanup on unmount
-        return (() => setMap(null))
-    }, []);
+  return (
+    // Set a height on the map so it will display
+      <MapGraphic ref={mapRef} height={height} width={width}/>
+  );
+};
 
-    return (
-        // Set a height on the map so it will display
-        <div ref={mapRef} style={{ height: "100vh" }} />
-      );
-
-}
+  const MapGraphic = styled.div`
+    width: ${props => props.width}px;
+    height: ${props => props.height }px;
+    border: 5px solid grey;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  `
 
 
 export default DisplayMap;
