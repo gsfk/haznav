@@ -19,16 +19,14 @@ const DisplayMap = ({ height, width }) => {
     const defaultLayers = platform.createDefaultLayers();
 
     // Create map instance
-    setMap(
-      new H.Map(mapRef.current, defaultLayers.vector.normal.map, {
-        center: { lat: MONTREAL_LATITUDE, lng: MONTREAL_LONGITIUDE },
-        zoom: ZOOM_LEVEL,
-        pixelRatio: window.devicePixelRatio || 1,
-      })
-    );
+
+    new H.Map(mapRef.current, defaultLayers.vector.normal.map, {
+      center: { lat: MONTREAL_LATITUDE, lng: MONTREAL_LONGITIUDE },
+      zoom: ZOOM_LEVEL,
+      pixelRatio: window.devicePixelRatio || 1,
+    });
 
     //cleanup on unmount
-    return () => setMap(null);
   }, []);
 
   return (
