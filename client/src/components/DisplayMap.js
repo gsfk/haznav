@@ -7,10 +7,10 @@ const ZOOM_LEVEL = 12;
 
 const DisplayMap = ({ height, width }) => {
   const mapRef = useRef(null);
-  const [map, setMap] = useState(null);
 
-  useEffect(() => {
-    console.log("useEffect");
+  React.useLayoutEffect(() => {
+    // `mapRef.current` will be `undefined` when this hook first runs; edge case that
+    if (!mapRef.current) return;
     const H = window.H;
     const platform = new H.service.Platform({
       apikey: `${process.env.REACT_APP_API_KEY}`,
@@ -18,16 +18,41 @@ const DisplayMap = ({ height, width }) => {
 
     const defaultLayers = platform.createDefaultLayers();
 
-    // Create map instance
-
-    new H.Map(mapRef.current, defaultLayers.vector.normal.map, {
+    const hMap = new H.Map(mapRef.current, defaultLayers.vector.normal.map, {
       center: { lat: MONTREAL_LATITUDE, lng: MONTREAL_LONGITIUDE },
       zoom: ZOOM_LEVEL,
       pixelRatio: window.devicePixelRatio || 1,
     });
 
-    //cleanup on unmount
-  }, []);
+    console.log({ hMap });
+
+    const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(hMap));
+
+    const ui = H.ui.UI.createDefault(hMap, defaultLayers);
+
+    // This will act as a cleanup to run once this hook runs again.
+    // This includes when the component un-mounts
+    return () => {
+      hMap.dispose();
+    };
+  }, [mapRef]); // This will run this hook every time this ref is updated
+
+  // useEffect(() => {
+  //   console.log("useEffect");
+  //   const H = window.H;
+  //   const platform = new H.service.Platform({
+  //     apikey: `${process.env.REACT_APP_API_KEY}`,
+  //   });
+
+  //   const defaultLayers = platform.createDefaultLayers();
+
+  //   // Create map instance
+  //   new H.Map(mapRef.current, defaultLayers.vector.normal.map, {
+  //     center: { lat: MONTREAL_LATITUDE, lng: MONTREAL_LONGITIUDE },
+  //     zoom: ZOOM_LEVEL,
+  //     pixelRatio: window.devicePixelRatio || 1,
+  //   });
+  // }, []);
 
   return (
     // Set a height on the map so it will display
