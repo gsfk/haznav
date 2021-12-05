@@ -9,7 +9,6 @@ const DisplayMap = ({ height, width }) => {
   const mapRef = useRef(null);
 
   React.useLayoutEffect(() => {
-    // `mapRef.current` will be `undefined` when this hook first runs; edge case that
     if (!mapRef.current) return;
     const H = window.H;
     const platform = new H.service.Platform({
@@ -25,17 +24,18 @@ const DisplayMap = ({ height, width }) => {
     });
 
     console.log({ hMap });
+    console.log({ H: H });
+    console.log({ window: window });
 
-    const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(hMap));
+    // const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(hMap));
 
-    const ui = H.ui.UI.createDefault(hMap, defaultLayers);
+    // const ui = H.ui.UI.createDefault(hMap, defaultLayers);
 
-    // This will act as a cleanup to run once this hook runs again.
-    // This includes when the component un-mounts
+    // cleanup on unmount
     return () => {
       hMap.dispose();
     };
-  }, [mapRef]); // This will run this hook every time this ref is updated
+  }, [mapRef]);
 
   // useEffect(() => {
   //   console.log("useEffect");
