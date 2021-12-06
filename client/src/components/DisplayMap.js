@@ -27,9 +27,8 @@ const DisplayMap = ({ height, width }) => {
     console.log({ H: H });
     console.log({ window: window });
 
-    // const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(hMap));
-
-    // const ui = H.ui.UI.createDefault(hMap, defaultLayers);
+    const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(hMap));
+    const ui = H.ui.UI.createDefault(hMap, defaultLayers);
 
     // cleanup on unmount
     return () => {
