@@ -1,24 +1,21 @@
 //https://developer.here.com/tutorials/react/
 
-
-import * as React from 'react';
+import * as React from "react";
 
 export class DisplayMapClass extends React.Component {
   mapRef = React.createRef();
 
   state = {
     // The map instance to use during cleanup
-    map: null
+    map: null,
   };
 
   componentDidMount() {
-
     const H = window.H;
     const platform = new H.service.Platform({
-        apikey: `${process.env.REACT_APP_API_KEY}`
+      apikey: `${process.env.REACT_APP_API_KEY}`,
     });
     // test build... correct setup here would be to route through proxy
-
 
     const defaultLayers = platform.createDefaultLayers();
 
@@ -30,10 +27,10 @@ export class DisplayMapClass extends React.Component {
         // This map is centered over Europe
         center: { lat: 50, lng: 5 },
         zoom: 4,
-        pixelRatio: window.devicePixelRatio || 1
+        pixelRatio: window.devicePixelRatio || 1,
       }
     );
- 
+
     this.setState({ map });
   }
 
